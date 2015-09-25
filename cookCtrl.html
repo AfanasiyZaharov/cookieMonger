@@ -1,0 +1,38 @@
+<html ng-app="myModule">
+	<head>
+		<script type="text/javascript" src = "angular.min.js"></script>
+		<script type="text/javascript" src = "MyModule.js"></script>
+		<script type="text/javascript" src = "cookieService.js"></script>
+		
+		
+		
+	</head>
+	<body ng-controller="cookieCtrl">
+		<p>
+			Hello!
+		</p>
+		<input ng-model="filteer">
+		<span>
+			<h1>Create Cookie</h1>
+			<input ng-model="name">
+			<input ng-model="domain">
+			<input ng-model="url">
+
+		</span>
+			<button ng-click= "niceUsingServices.createCookie({name: name, domain: domain, url: url})">create</button>
+			</br>
+			</h2>{{test}}</h2>
+		</span>
+		<span ng-repeat="cookie in showingCookies | filter:filteer">
+			<p>{{cookie.domain}} </p> 
+			<button ng-click = "niceUsingServices.deleteCookie({domain : cookie.domain, name:cookie.name, path: cookie.path})">
+				deleteFUCKINGCOOKIE
+			</button> 
+			<p>  
+			 	{{cookie.name}}  
+			</p>
+		</span>
+		<button ng-click = "left()">left</button>
+		<button ng-click = "right()">rigth</button>>
+	</body>
+</html>
