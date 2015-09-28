@@ -1,3 +1,4 @@
+
 var myModule  = angular.module('myModule', []);
 myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$scope.cookies = [];

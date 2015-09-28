@@ -1,19 +1,26 @@
+log(myModule);
+//chrome.devtools.inspectedWindow.eval('console.log("factory is working")')
+
 myModule.factory('cookieService', function() {
 	var that = {};
+	that.testing = "factory  injected";
 	that.cache = [];
+	that.tests  = function(){
+		log('methods');
+	}
 	var getCookiesinCache = function(cookies){
 		for(var i = 0; i < cookies.length; i++){
 			that.cache.push(cookies[i]);
 		}
 	}
 
-	that.init = function(scopeArray, cb){
+	that.init = function(){
 		that.cache = [];
 		chrome.cookies.getAll({}, getCookiesinCache);
 		//that.init();
 		//scopeArray = that.cache;
 		//cb();
-		console.log('init working');
+		log('init working');
 	}
 
 	that.createCookie = function(cookieParams, cb){
@@ -107,7 +114,8 @@ myModule.factory('cookieService', function() {
 	}
 	var validURL = function(cookie){
 		var newCookie = cookie;
-		/*if(newCookie.domain.match(/^\./) === null){
+		/*
+		if(newCookie.domain.match(/^\./) === null){
 			newCookie.domain = '.'+ newCookie.domain;
 		}
 
@@ -116,6 +124,7 @@ myModule.factory('cookieService', function() {
 		}else{
 			newCookie.url = newCookie.domain;
 		};*/
+		
 		newCookie.url = newCookie.domain;
 		if(!newCookie.secure){
 			newCookie.url = 'http://' + newCookie.url + newCookie.path;
@@ -126,3 +135,9 @@ myModule.factory('cookieService', function() {
 	}
 	return that;
 });
+/*log(testObject);
+
+console.log(testObject);
+
+*/
+//testObject.testMethod();

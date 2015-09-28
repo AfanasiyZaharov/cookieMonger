@@ -1,4 +1,4 @@
-
+console.log("onconsole");
 function focusOrCreateTab(url) {
   chrome.windows.getAll({"populate":true}, function(windows) {
     var existing_tab = null;
@@ -21,7 +21,43 @@ function focusOrCreateTab(url) {
 }
 
 chrome.browserAction.onClicked.addListener(function(tab) {
-  var manager_url = chrome.extension.getURL("cookCtrl.html");
+  var manager_url = chrome.extension.getURL("DTpanel.html");
   focusOrCreateTab(manager_url);
   //console.log(chrome.cookies);
 });
+var cookiesArr = [];
+var getCookiesinCookiesArr = function(cookies){
+  for(var i = 0; i<cookies.length; i++){
+    cookiesArr.push(cookies[i]);
+  }
+}
+var onMessageListener = function(message, sender, sendResponse) {
+    switch(message.type) {
+        case "bglog":
+            console.log(message.obj);
+        break;
+        case "getCookies":
+        chrome.cookies.getAll({}, getCookiesinCookiesArr);
+        //console.log("call got");
+        setTimeout(function(){
+          chrome.runtime.sendMessage({type: "cookies", obj: cookiesArr});
+          //console.log("require is ready");
+          
+          },500);
+
+        break;
+        case "cookies":
+          //console.log("response got");
+          //console.log(message.obj);
+        break;
+             
+    }
+    //window.Obj = message.obj;
+    return true;
+}
+chrome.runtime.onMessage.addListener(onMessageListener);
+chrome.runtime.onConnect.addListener(function(port){
+  console.log(port.name);
+  port.postMessage({});
+})
+

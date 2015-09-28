@@ -1,4 +1,3 @@
 (function() {
-	if(preferences.showDevToolsPanel)
-		chrome.devtools.panels.create('CookieMonger', 'cookie.png', 'panel.html');
+		chrome.devtools.panels.create('CookieMonger', 'cookie.png', 'DTpanel.html');
 })();
