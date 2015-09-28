@@ -18,7 +18,7 @@ var backgroundPageConnection = chrome.runtime.connect({
 });
 backgroundPageConnection.postMessage({});
 backgroundPageConnection.onMessage.addListener(function(message) {
-	log("got the message");
+	   log("got the message");
 });
 
 //chrome.runtime.onMessage.addListener(onMessageListener);
