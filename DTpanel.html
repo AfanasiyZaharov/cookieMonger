@@ -2,8 +2,17 @@
 	<head>
 		<script type="text/javascript" src = "angular.min.js"></script>
 		<script type="text/javascript" src = "fMyModule.js"></script>
-		<script type="text/javascript" src = "cookieService.js"></script>
-		
+		<script type="text/javascript" src = "cookieServiceDP.js"></script>
+		<style>
+			table {
+			width: 100%;
+			table-layout: fixed; 
+			}
+			td {
+			col align: center;
+			text-align: left;
+			}
+			</style>
 		
 		
 	</head>
@@ -12,5 +21,18 @@
 	<p>{{test}}</p>
 	<p>{{doubletest}}</p>
 	<h2>{{a}}</h2>
+	<span ng-repeat="cookie in service.cache">
+	<table  border="1">
+			<tr>
+			<th align="left" valign="middle" width="100">Name</th>
+			<th align="left" valign="middle" width="100">Domain</th>
+			<th align="left" valign="middle" width="100">Value</th>
+			</tr>
+	
+			<tr><td>{{cookie.name}}</td><td> {{cookie.domain}}</td><td>{{cookie.value}}</td></tr>
+		
+	</table>
+			
+	</span>
 	</body>
 </html>

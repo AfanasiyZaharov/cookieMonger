@@ -16,9 +16,13 @@ var onMessageListener = function(message, sender, sendResponse) {
 var backgroundPageConnection = chrome.runtime.connect({
 	name : "devtools-page"
 });
-backgroundPageConnection.postMessage({});
+var tabId = chrome.devtools.inspectedWindow.tabId;
+backgroundPageConnection.postMessage({
+		type : "getall",
+		tabId : tabId
+	});
 backgroundPageConnection.onMessage.addListener(function(message) {
-	   log("got the message");
+	   log(message.cks);
 });
 
 //chrome.runtime.onMessage.addListener(onMessageListener);
@@ -57,15 +61,16 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$scope.test = 123;
 	$scope.doubletest = "abc";
 	$scope.a = cookieService.testing;
-	//log(cookieService.testing);
+	
 	log(chrome);
 	$scope.service = cookieService;
 	chrome.runtime.sendMessage({type: "getCookies"});
-	//log($scope.service);
-	//console.log($scope.service);
-	//$scope.service.init();
-	//$scope.service.tests();
-	//$timeout(function(){$scope.cookie = $scope.service.cache; log($scope.cookie)},400);
+
+	$scope.service.init();
+	$timeout(function(){
+		log($scope.service.cache);
+	},500);
+
 
 	//chrome.devtools.inspectedWindow.eval('console.log("fmm is working")');
 
