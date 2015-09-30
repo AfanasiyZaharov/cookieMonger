@@ -19,20 +19,21 @@
 	<body ng-controller="cookieCtrl">
 	<h1>Hello</h1>
 	<p>{{test}}</p>
-	<p>{{doubletest}}</p>
-	<h2>{{a}}</h2>
-	<span ng-repeat="cookie in service.cache">
+	<p>{{cookies[1].domain}}</p>
+	
+	
 	<table  border="1">
 			<tr>
 			<th align="left" valign="middle" width="100">Name</th>
 			<th align="left" valign="middle" width="100">Domain</th>
 			<th align="left" valign="middle" width="100">Value</th>
 			</tr>
-	
-			<tr><td>{{cookie.name}}</td><td> {{cookie.domain}}</td><td>{{cookie.value}}</td></tr>
+			
+			<tr ng-repeat="cookie in cookies"><td>{{cookie.name}}</td><td> {{cookie.domain}}</td><td>{{cookie.value}}</td></tr>
+			
 		
 	</table>
 			
-	</span>
+	
 	</body>
 </html>
