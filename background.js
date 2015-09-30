@@ -36,23 +36,9 @@ var onMessageListener = function(message, sender, sendResponse) {
         case "bglog":
             console.log(message.obj);
         break;
-        case "getCookies":
-        chrome.cookies.getAll({}, getCookiesinCookiesArr);
-        //console.log("call got");
-        setTimeout(function(){
-          chrome.runtime.sendMessage({type: "cookies", obj: cookiesArr});
-          //console.log("require is ready");
-          
-          },500);
-
-        break;
-        case "cookies":
-          //console.log("response got");
-          //console.log(message.obj);
-        break;
              
     }
-    //window.Obj = message.obj;
+  
     return true;
 }
 chrome.runtime.onMessage.addListener(onMessageListener);
@@ -121,4 +107,14 @@ function deleteCookie(port, message){
   //var forDelete = {};
   var url = tab.url
   chrome.cookies.remove({url: url, name: message.forDelete.name});
+  chrome.cookies.getAll({
+      url : url
+    }, function(cks) {
+      console.log("I have " + cks.length + " cookies");
+      port.postMessage({
+        action : "delete",
+        url : url,
+        cks : cks
+      });
+    });
 }

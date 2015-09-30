@@ -8,14 +8,7 @@ myModule.factory('cookieService', function() {
 	var tabId = chrome.devtools.inspectedWindow.tabId;
 
 	backgroundPageConnection.onMessage.addListener(function(message) {
-		if(message.action === "getall"){
-	    	that.cache = message.cks;
-	    	//log(that.cache);
-		}
-		if(message.action === "update"){
-			that.cache = message.cks;
-			//log(message.updatedCookie);
-		}
+		that.cache = message.cks;
 	});
 	var that = {};
 	that.testing = "factory  injected";

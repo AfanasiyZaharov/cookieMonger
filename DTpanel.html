@@ -28,8 +28,9 @@
 			<th align="left" valign="middle" width="100">Domain</th>
 			<th align="left" valign="middle" width="100">Value</th>
 			</tr>
-			
-			<tr ng-repeat="cookie in cookies"><td>{{cookie.name}}</td><td> {{cookie.domain}}</td><td>{{cookie.value}}</td></tr>
+			<ng-repeat="cookie in cookies">
+			<tr ><td>{{cookie.name}}</td><td> {{cookie.domain}}</td><td>{{cookie.value}}</td></tr>
+			</ng-repeat>
 			
 		
 	</table>

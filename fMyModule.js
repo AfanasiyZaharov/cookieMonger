@@ -37,7 +37,10 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 
 		}, 300)
 		$scope.select = function(cookieNumber){
-			$scope.cookies[i].selected = true;
+			$scope.cookies.forEach(function(item){
+				item.selected = false;
+			});
+			$scope.cookies[cookieNumber].selected = true;
 
 		}
 	}
