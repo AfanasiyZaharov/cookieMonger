@@ -24,6 +24,7 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$scope.cookies = []
 	log(chrome);
 	$scope.service = cookieService;
+	$scope.buffer;
 	$scope.init = function(){
 		$scope.service.init();
 		$timeout(function(){
@@ -37,6 +38,8 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 
 		}, 300)
 		$scope.select = function(cookieNumber){
+			$scope.buffer = $scope.cookies[cookieNumber];
+			log($scope.buffer);
 			$scope.cookies.forEach(function(item){
 				item.selected = false;
 			});
@@ -45,6 +48,13 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		}
 	}
 	$scope.init();
+	$scope.testing = function(obj, obj2){
+		log(obj);
+		log(obj2);
+	}
+		/*$timeout(function(){
+		$scope.select(0);
+	},1000);*/
 	
 
 

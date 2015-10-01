@@ -38,6 +38,8 @@ myModule.factory('cookieService', function() {
 	}
 
 	that.Update = function(oldCookie, newCookie, cb){
+		log(oldCookie);
+		log(newCookie);
 		for(var key in oldCookie){
 			if(newCookie[key] === undefined){
 				newCookie[key] = oldCookie[key];
@@ -45,6 +47,9 @@ myModule.factory('cookieService', function() {
 		}
 		delete newCookie.session;
 		delete newCookie.hostOnly;
+		delete newCookie.selected;
+		delete newCookie.number;
+		delete newCookie.$$hashKey;
 		newCookie = validURL(newCookie);
 		backgroundPageConnection.postMessage({
 			type : "update",
