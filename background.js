@@ -105,16 +105,20 @@ function update(port, message){
 }
 function deleteCookie(port, message){
   //var forDelete = {};
-  var url = tab.url
-  chrome.cookies.remove({url: url, name: message.forDelete.name});
-  chrome.cookies.getAll({
+    console.log(message.cookie);
+    chrome.tabs.get(message.tabId, function(tab) {
+    var url = tab.url;
+    chrome.cookies.remove({url: url, name: message.cookie.name});
+    console.log("Looking for cookies on: " + url);
+    chrome.cookies.getAll({
       url : url
     }, function(cks) {
       console.log("I have " + cks.length + " cookies");
       port.postMessage({
-        action : "delete",
+        action : "update",
         url : url,
         cks : cks
       });
     });
+  });
 }

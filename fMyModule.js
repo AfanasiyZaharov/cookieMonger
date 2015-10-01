@@ -37,21 +37,42 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 			log($scope.cookies);
 
 		}, 300)
-		$scope.select = function(cookieNumber){
-			$scope.buffer = $scope.cookies[cookieNumber];
-			log($scope.buffer);
-			$scope.cookies.forEach(function(item){
-				item.selected = false;
-			});
-			$scope.cookies[cookieNumber].selected = true;
-
-		}
 	}
+	$scope.update = function(){
+		$scope.cookies = [];
+		log($scope.service.cache);
+			for(var i = 0; i<$scope.service.cache.length; i++){
+				$scope.cookies.push($scope.service.cache[i])
+				$scope.cookies[i].selected = false;
+				$scope.cookies[i].number  = i;
+			}
+			log($scope.cookies);
+
+	}
+	$scope.select = function(cookieNumber){
+		$scope.buffer = $scope.cookies[cookieNumber];
+		log($scope.buffer);
+		$scope.cookies.forEach(function(item){
+			item.selected = false;
+		});
+		$scope.cookies[cookieNumber].selected = true;
+
+	}
+	$scope.cancel = function(){
+		$scope.cookies.forEach(function(item){
+			item.selected = false;
+		});
+	}
+	
+
 	$scope.init();
 	$scope.testing = function(obj, obj2){
 		log(obj);
 		log(obj2);
 	}
+	$scope.$watch('service.cache', function(){
+		$scope.update();
+	})
 		/*$timeout(function(){
 		$scope.select(0);
 	},1000);*/

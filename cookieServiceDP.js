@@ -56,7 +56,7 @@ myModule.factory('cookieService', function() {
 			tabId : tabId,
 			newCookie: newCookie
 		});		//cb();
-		that.init();
+		//that.init();
 
 
 	}
