@@ -33,9 +33,9 @@
 			<input ng-value="cookie.domain" ng-model = "domain">
 			<input ng-value="cookie.value" ng-model = "value">
 			<input ng-value="cookie.name" ng-model = "name">
-			<button ng-click="service.Update(buffer, {domain: domain, value: value, name: name}, )">Update</button>
+			<button ng-click="service.Update(buffer, {domain: domain, value: value, name: name}, cancel)">Update</button>
 			<button ng-click="cancel()">Cancel</button>
-			<button ng-click="service.deleteCookie(cookie)">delete</button>
+			<button ng-click="service.deleteCookie(cookie, cancel)">delete</button>
 		</div>
 	</span>
 			

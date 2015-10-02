@@ -57,7 +57,7 @@ myModule.factory('cookieService', function() {
 			newCookie: newCookie
 		});		//cb();
 		//that.init();
-
+		cb()
 
 	}
 	that.readCookie = function(filter, cb){
@@ -101,7 +101,7 @@ myModule.factory('cookieService', function() {
 		}
 		//cb();
 		arrForDelete = [];
-		that.init();
+		
 		*/
 		var forDelete = cookie;
 		
@@ -110,7 +110,8 @@ myModule.factory('cookieService', function() {
 			tabId : tabId,
 			cookie: forDelete
 		});
-
+		//that.init();
+		cb();
 	}
 
 	var Filter = function(dataForFilter, cookie){

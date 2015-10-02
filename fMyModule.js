@@ -46,7 +46,9 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 				$scope.cookies[i].selected = false;
 				$scope.cookies[i].number  = i;
 			}
+			log('working now');
 			log($scope.cookies);
+			$scope.apply();
 
 	}
 	$scope.select = function(cookieNumber){
@@ -62,8 +64,9 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		$scope.cookies.forEach(function(item){
 			item.selected = false;
 		});
+		$scope.update();
 	}
-	
+
 
 	$scope.init();
 	$scope.testing = function(obj, obj2){
