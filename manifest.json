@@ -8,13 +8,6 @@
     "default_icon": "cookie.png"
   },
  "devtools_page": "devtools-page.html",
- "content_scripts": [
-  {
-    "matches": [ "*://*/*" ],
-    "js": [ "content.js" ]
-  }
-  ],
-
 
   "background": {
     "scripts": ["background.js"]
