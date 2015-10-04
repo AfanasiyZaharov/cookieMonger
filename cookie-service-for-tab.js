@@ -1,4 +1,4 @@
-
+//TODO remove all shit  
 
 myModule.factory('cookieService', function() {
 	var backgroundPageConnection = chrome.runtime.connect({
@@ -12,7 +12,7 @@ myModule.factory('cookieService', function() {
 	var that = {};
 	that.testing = "factory  injected";
 	that.cache = [];
-	that.tests  = function(){
+	that.tests = function(){
 		log('methods');
 	}
 	var getCookiesinCache = function(cookies){
@@ -28,6 +28,7 @@ myModule.factory('cookieService', function() {
 			tabId : tabId
 		});
 		log('init working');
+		log(that.cache);
 	}
 
 	that.createCookie = function(cookieParams, cb){
@@ -36,7 +37,7 @@ myModule.factory('cookieService', function() {
 	
 	}
 
-	that.Update = function(oldCookie, newCookie, cb){
+	that.updateCookie = function(oldCookie, newCookie){
 		log(oldCookie);
 		log(newCookie);
 		for(var key in oldCookie){
@@ -49,32 +50,19 @@ myModule.factory('cookieService', function() {
 		delete newCookie.selected;
 		delete newCookie.number;
 		delete newCookie.$$hashKey;
+
 		newCookie = validURL(newCookie);
+
 		backgroundPageConnection.postMessage({
 			type : "update",
 			tabId : tabId,
 			newCookie: newCookie
 		});		
-		cb()
-
-	}
-	that.readCookie = function(filter, cb){
-		var arrForRead = [];
-		if(filter === undefined){
-			arrForDelete = that.cache;
-		}else{
-			for(var i = 0; i < that.cache.length; i++){
-				if(Filter(filter, that.cache[i])){
-					arrForRead.push(that.cache[i]);
-				}
-			}
-		}
-			
-
-		return arrForRead;
+		
+	//toDO src, source, destination or dest use in names;
 	}
 
-	that.deleteCookie = function(cookie, cb){
+	that.deleteCookie = function(cookie){
 		
 		var forDelete = cookie;
 		
@@ -83,10 +71,10 @@ myModule.factory('cookieService', function() {
 			tabId : tabId,
 			cookie: forDelete
 		});
-		cb();
+		
 	}
 
-	var Filter = function(dataForFilter, cookie){
+	/*var Filter = function(dataForFilter, cookie){
 	
 		
 		if((Object.keys(dataForFilter).length == 3)&&(dataForFilter.domain != "")){
@@ -106,6 +94,7 @@ myModule.factory('cookieService', function() {
 		}
 		return false;
 	}
+	*/
 	var validURL = function(cookie){
 		var newCookie = cookie;
 	
@@ -115,7 +104,8 @@ myModule.factory('cookieService', function() {
 		}else{
 			newCookie.url = 'https://' + newCookie.url + newCookie.path;
 		};
-		return newCookie;
+		return newCookie.url;
+		//toDo check the way to create url from domain and path. and check cookie documentation
 	}
 	return that;
 });

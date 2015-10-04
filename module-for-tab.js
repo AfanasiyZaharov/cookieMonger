@@ -1,3 +1,4 @@
+//TODO change a way to deal with service
 var log = function(obj) {
 	if(chrome && chrome.runtime) {
 		chrome.runtime.sendMessage({type: "bglog", obj: obj});
@@ -14,22 +15,25 @@ window.onerror = function(err, url, number){
 
 var myModule  = angular.module('myModule', []);
 myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
+	$scope.bufferid;
+	$scope.domain;
+	$scope.name;
+	$scope.value;
 	$scope.cookies = []
-	
-	$scope.service = cookieService;
+	$scope.cookieService = cookieService;
 	$scope.buffer;
 	$scope.init = function(){
-		$scope.service.init();
+		cookieService.init();
 		$timeout(function(){
 			
-			for(var i = 0; i<$scope.service.cache.length; i++){
-				$scope.cookies.push($scope.service.cache[i])
+			for(var i = 0; i<cookieService.cache.length; i++){
+				$scope.cookies.push(cookieService.cache[i])
 				$scope.cookies[i].selected = false;
 				$scope.cookies[i].number  = i;
 			}
 		
 
-		}, 300)
+		}, 500);
 	}
 	$scope.update = function(){
 		log(' update working now');
@@ -37,9 +41,9 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		
 			$timeout(function(){
 				$scope.cookies = [];
-				log($scope.service.cache);
-				for(var i = 0; i<$scope.service.cache.length; i++){
-				$scope.cookies.push($scope.service.cache[i])
+				log(cookieService.cache);
+				for(var i = 0; i<cookieService.cache.length; i++){
+				$scope.cookies.push(cookieService.cache[i])
 				$scope.cookies[i].selected = false;
 				$scope.cookies[i].number  = i;
 			}
@@ -47,7 +51,16 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 			log($scope.cookies);
 			
 		}, 15);
-		//$scope.apply();
+		$scope.apply();
+	}
+	$scope.cookieUpdate = function(){
+		log($scope.domain);
+		cookieService.updateCookie($scope.buffer, {domain: $scope.domain, value: $scope.value, name: $scope.name});
+		$scope.cancel();
+	},
+	$scope.cookieDelete = function(cookie){
+		cookieService.deleteCookie(cookie);
+		$scope.cancel();
 	}
 	$scope.select = function(cookieNumber){
 		$scope.buffer = $scope.cookies[cookieNumber];
@@ -62,13 +75,15 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		$scope.cookies.forEach(function(item){
 			item.selected = false;
 		});
-		$scope.update();
+		//$scope.update();
 	}
 
 
 	$scope.init();
 	
-	$scope.$watch('service.cache', function(newValue, oldValue){
+	$scope.$watch(function(){
+		return cookieService.cache;
+	}, function(newValue, oldValue){
 		log('watcher');
 		log('newValue');
 		log(newValue);
@@ -76,7 +91,11 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		log(oldValue);
 		$scope.update();
 	})
-	
+	$timeout(function(){
+		//log(cookieService.cache);
+		//log(cookieService.cache);
+		log($scope.cookies);
+	},1500)
 
 
 
