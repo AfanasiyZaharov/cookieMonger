@@ -1,34 +1,28 @@
 //TODO remove all shit  
 
 myModule.factory('cookieService', function() {
+	//this use, because extension can't get Cookies from Chrome into Devtools-page,
+	//and need to get it with backround-page
 	var backgroundPageConnection = chrome.runtime.connect({
 		name : "devtools-page"
 	});
 	var tabId = chrome.devtools.inspectedWindow.tabId;
 
+	//update all Cookies for each request
 	backgroundPageConnection.onMessage.addListener(function(message) {
-		that.cache = message.cks;
+		that.cache = message.cookies;
 	});
 	var that = {};
-	that.testing = "factory  injected";
 	that.cache = [];
-	that.tests = function(){
-		log('methods');
-	}
-	var getCookiesinCache = function(cookies){
-		for(var i = 0; i < cookies.length; i++){
-			that.cache.push(cookies[i]);
-		}
-	}
 
+	//this function request a Cookies from background-page 
 	that.init = function(){
 		that.cache = [];
 		backgroundPageConnection.postMessage({
 			type : "getall",
 			tabId : tabId
 		});
-		log('init working');
-		log(that.cache);
+	
 	}
 
 	that.createCookie = function(cookieParams, cb){
@@ -37,31 +31,33 @@ myModule.factory('cookieService', function() {
 	
 	}
 
-	that.updateCookie = function(oldCookie, newCookie){
-		log(oldCookie);
-		log(newCookie);
-		for(var key in oldCookie){
-			if(newCookie[key] === undefined){
-				newCookie[key] = oldCookie[key];
+	//This function get options from source Cookie, 
+	//include this options in destination Cookie and set it 
+	that.updateCookie = function(src, dest){
+		log(src);
+		log(dest);
+		for(var key in src){
+			if(dest[key] === undefined){
+				dest[key] = src[key];
 			}
 		}
-		delete newCookie.session;
-		delete newCookie.hostOnly;
-		delete newCookie.selected;
-		delete newCookie.number;
-		delete newCookie.$$hashKey;
+		delete dest.session;
+		delete dest.hostOnly;
+		delete dest.selected;
+		delete dest.number;
+		delete dest.$$hashKey;
 
-		newCookie = validURL(newCookie);
+		dest.url = setURL(dest);
 
 		backgroundPageConnection.postMessage({
 			type : "update",
 			tabId : tabId,
-			newCookie: newCookie
+			dest: dest
 		});		
 		
 	//toDO src, source, destination or dest use in names;
 	}
-
+	//just request background-page, such delete cookie
 	that.deleteCookie = function(cookie){
 		
 		var forDelete = cookie;
@@ -74,37 +70,18 @@ myModule.factory('cookieService', function() {
 		
 	}
 
-	/*var Filter = function(dataForFilter, cookie){
 	
-		
-		if((Object.keys(dataForFilter).length == 3)&&(dataForFilter.domain != "")){
-			if((cookie.name === dataForFilter.name)&&((cookie.domain + cookie.path) === (dataForFilter.domain + dataForFilter.path))){
-			
-				return true;
-			}
-		}
-		if(Object.keys(dataForFilter).length == 2){
-			if((dataForFilter.domain != undefined)&&((cookie.domain + cookie.path) === (dataForFilter.domain + dataForFilter.path))){
-				//console.log('123123123');
-				return true;
-			}
-			if((dataForFilter.name != undefined)&&(cookie.name === dataForFilter.name)){
-				return true;
-			}
-		}
-		return false;
-	}
-	*/
-	var validURL = function(cookie){
-		var newCookie = cookie;
+	//this function set URL to cookies, using that options
+	var setURL = function(cookie){
+		var dest = cookie;
 	
-		newCookie.url = newCookie.domain;
-		if(!newCookie.secure){
-			newCookie.url = 'http://' + newCookie.url + newCookie.path;
+		dest.url = dest.domain;
+		if(!dest.secure){
+			dest.url = 'http://' + dest.url + dest.path;
 		}else{
-			newCookie.url = 'https://' + newCookie.url + newCookie.path;
+			dest.url = 'https://' + dest.url + dest.path;
 		};
-		return newCookie.url;
+		return dest.url;
 		//toDo check the way to create url from domain and path. and check cookie documentation
 	}
 	return that;

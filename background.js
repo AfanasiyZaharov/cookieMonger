@@ -43,29 +43,29 @@ function getAll(port, message) {
     console.log("Looking for cookies on: " + url);
     chrome.cookies.getAll({
       url : url
-    }, function(cks) {
-      console.log("I have " + cks.length + " cookies");
+    }, function(cookies) {
+      console.log("I have " + cookies.length + " cookies");
       port.postMessage({
         action : "getall",
         url : url,
-        cks : cks
+        cookies : cookies
       });
     });
   });
 }
 function update(port, message){
-  chrome.cookies.set(message.newCookie);
+  chrome.cookies.set(message.dest);
  chrome.tabs.get(message.tabId, function(tab) {
     var url = tab.url;
     //console.log("Looking for cookies on: " + url);
     chrome.cookies.getAll({
       url : url
-    }, function(cks) {
-      //console.log("I have " + cks.length + " cookies");
+    }, function(cookies) {
+      //console.log("I have " + cookies.length + " cookies");
       port.postMessage({
         action : "update",
         url : url,
-        cks : cks
+        cookies : cookies
       });
     });
   });
@@ -80,12 +80,12 @@ function deleteCookie(port, message){
     //console.log("Looking for cookies on: " + url);
     chrome.cookies.getAll({
       url : url
-    }, function(cks) {
-      //console.log("I have " + cks.length + " cookies");
+    }, function(cookies) {
+      //console.log("I have " + cookies.length + " cookies");
       port.postMessage({
         action : "update",
         url : url,
-        cks : cks
+        cookies : cookies
       });
     });
   });

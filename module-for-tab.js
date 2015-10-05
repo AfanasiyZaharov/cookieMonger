@@ -21,7 +21,7 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$scope.value;
 	$scope.cookies = []
 	$scope.cookieService = cookieService;
-	$scope.buffer;
+	$scope.buffer = {};
 	$scope.init = function(){
 		cookieService.init();
 		$timeout(function(){
@@ -50,21 +50,27 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 			
 			log($scope.cookies);
 			
-		}, 15);
+		}, 50);
 		$scope.apply();
 	}
 	$scope.cookieUpdate = function(){
-		log($scope.domain);
-		cookieService.updateCookie($scope.buffer, {domain: $scope.domain, value: $scope.value, name: $scope.name});
+		log($scope.cookies[$scope.buffer.number]);
+		cookieService.updateCookie($scope.buffer, $scope.cookies[$scope.buffer.number]);
 		$scope.cancel();
 	},
 	$scope.cookieDelete = function(cookie){
-		cookieService.deleteCookie(cookie);
+		cookieService.deleteCookie($scope.buffer);
 		$scope.cancel();
 	}
 	$scope.select = function(cookieNumber){
-		$scope.buffer = $scope.cookies[cookieNumber];
-		log($scope.buffer);
+		$scope.buffer = {};
+		var forClone = $scope.cookies[cookieNumber];
+		//log(forClone);
+		//$scope.buffer = $scope.cookies[cookieNumber];
+		for (var key in forClone) {
+			$scope.buffer[key] = forClone[key];
+		}
+		//log($scope.buffer);
 		$scope.cookies.forEach(function(item){
 			item.selected = false;
 		});
@@ -75,6 +81,10 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		$scope.cookies.forEach(function(item){
 			item.selected = false;
 		});
+		//log($scope.cookies[$scope.buffer.number]);
+		//log($scope.buffer);
+		$scope.cookies[$scope.buffer.number] = $scope.buffer;
+		$scope.apply();
 		//$scope.update();
 	}
 
@@ -94,7 +104,7 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$timeout(function(){
 		//log(cookieService.cache);
 		//log(cookieService.cache);
-		log($scope.cookies);
+		//log($scope.cookies);
 	},1500)
 
 

@@ -30,12 +30,12 @@
 			<div>{{cookie.name}}</div>
 		</div>
 		<div ng-if="cookie.selected">
-			<input ng-value="cookie.domain" ng-model = "domain">
-			<input ng-value="cookie.value" ng-model = "value">
-			<input ng-value="cookie.name" ng-model = "name">
+			<input ng-model = "cookie.domain">
+			<input  ng-model = "cookie.value">
+			<input  ng-model = "cookie.name">
 			<button ng-click="cookieUpdate()">Update</button>
 			<button ng-click="cancel()">Cancel</button>
-			<button ng-click="cookieDelete(cookie)">delete</button>
+			<button ng-click="cookieDelete()">delete</button>
 		</div>
 	</span>
 			
