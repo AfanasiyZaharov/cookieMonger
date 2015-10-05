@@ -19,8 +19,6 @@
 	</head>
 	<body ng-controller="cookieCtrl">
 	<h1>Hello</h1>
-	<p>{{test}}</p>
-	<p>{{cookies[1].domain}}</p>
 	
 	
 	<span ng-repeat="cookie in cookies">
@@ -38,7 +36,11 @@
 			<button ng-click="cookieDelete()">delete</button>
 		</div>
 	</span>
-			
+	<span>
+		<input ng-model = "destCookie.name">
+		<input ng-model = "destCookie.value">
+		<button ng-click = "cookieCreate()">Create</button>
+	</span>
 	
 	</body>
 </html>

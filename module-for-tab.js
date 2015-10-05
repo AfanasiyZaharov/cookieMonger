@@ -16,9 +16,9 @@ window.onerror = function(err, url, number){
 var myModule  = angular.module('myModule', []);
 myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$scope.bufferid;
-	$scope.domain;
-	$scope.name;
-	$scope.value;
+	$scope.destCookie = {};
+	$scope.destCookie.name = "";
+	$scope.destCookie.value = "";
 	$scope.cookies = []
 	$scope.cookieService = cookieService;
 	$scope.buffer = {};
@@ -58,7 +58,7 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		cookieService.updateCookie($scope.buffer, $scope.cookies[$scope.buffer.number]);
 		$scope.cancel();
 	},
-	$scope.cookieDelete = function(cookie){
+	$scope.cookieDelete = function(){
 		cookieService.deleteCookie($scope.buffer);
 		$scope.cancel();
 	}
@@ -76,6 +76,11 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		});
 		$scope.cookies[cookieNumber].selected = true;
 
+	}
+	$scope.cookieCreate = function(){
+		log($scope.destCookie);
+		cookieService.createCookie($scope.destCookie);
+		$scope.cancel();
 	}
 	$scope.cancel = function(){
 		$scope.cookies.forEach(function(item){

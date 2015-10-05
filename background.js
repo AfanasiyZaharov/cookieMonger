@@ -54,9 +54,12 @@ function getAll(port, message) {
   });
 }
 function update(port, message){
-  chrome.cookies.set(message.dest);
+
+  
  chrome.tabs.get(message.tabId, function(tab) {
     var url = tab.url;
+    message.dest.url = url;
+    chrome.cookies.set(message.dest);
     //console.log("Looking for cookies on: " + url);
     chrome.cookies.getAll({
       url : url

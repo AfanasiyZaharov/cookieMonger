@@ -1,8 +1,8 @@
 //TODO remove all shit  
 
 myModule.factory('cookieService', function() {
-	//this use, because extension can't get Cookies from Chrome into Devtools-page,
-	//and need to get it with backround-page
+	//extension can't get Cookies from Chrome into Devtools-page,
+	//so we need to get it from the backround-page
 	var backgroundPageConnection = chrome.runtime.connect({
 		name : "devtools-page"
 	});
@@ -15,7 +15,7 @@ myModule.factory('cookieService', function() {
 	var that = {};
 	that.cache = [];
 
-	//this function request a Cookies from background-page 
+	//this function request a Cookies from the background-page 
 	that.init = function(){
 		that.cache = [];
 		backgroundPageConnection.postMessage({
@@ -25,9 +25,21 @@ myModule.factory('cookieService', function() {
 	
 	}
 
-	that.createCookie = function(cookieParams, cb){
-		chrome.cookies.set(cookieParams, cb);
-		that.init();
+	that.createCookie = function(dest){
+		/*delete dest.session;
+		delete dest.hostOnly;
+		delete dest.selected;
+		delete dest.number;
+		delete dest.$$hashKey;
+		*/
+		//dest.url = setURL(dest);
+
+		backgroundPageConnection.postMessage({
+			type : "update",
+			tabId : tabId,
+			dest: dest
+		});	
+
 	
 	}
 
@@ -55,7 +67,7 @@ myModule.factory('cookieService', function() {
 			dest: dest
 		});		
 		
-	//toDO src, source, destination or dest use in names;
+
 	}
 	//just request background-page, such delete cookie
 	that.deleteCookie = function(cookie){
