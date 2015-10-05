@@ -1,5 +1,5 @@
 //TODO remove all shit  
-
+//TODO change that to exports
 myModule.factory('cookieService', function() {
 	//extension can't get Cookies from Chrome into Devtools-page,
 	//so we need to get it from the backround-page
@@ -96,5 +96,6 @@ myModule.factory('cookieService', function() {
 		return dest.url;
 		//toDo check the way to create url from domain and path. and check cookie documentation
 	}
+
 	return that;
 });
