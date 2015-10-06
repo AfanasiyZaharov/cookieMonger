@@ -3,6 +3,7 @@
 		<script type="text/javascript" src = "angular.min.js"></script>
 		<script type="text/javascript" src = "module-for-tab.js"></script>
 		<script type="text/javascript" src = "cookie-service-for-tab.js"></script>
+		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 		<style>
 			table {
 			width: 100%;
@@ -20,12 +21,13 @@
 	<body ng-controller="cookieCtrl">
 	<h1>Hello</h1>
 	
-	
+	<div class="container">
+	<div class = "row">
 	<span ng-repeat="cookie in cookies">
 		<div ng-if="!cookie.selected" ng-click="select(cookie.number)">
-			<div>{{cookie.domain}}</div>
-			<div>{{cookie.value}}</div>
-			<div>{{cookie.name}}</div>
+			<div class = "col-xs-3" >{{cookie.domain}}</div>
+			<div class = "col-xs-3">{{cookie.value}}</div>
+			<div class = "col-xs-3">{{cookie.name}}</div>
 		</div>
 		<div ng-if="cookie.selected">
 			<input ng-model = "cookie.domain">
@@ -35,12 +37,14 @@
 			<button ng-click="cancel()">Cancel</button>
 			<button ng-click="cookieDelete()">delete</button>
 		</div>
+		</br>
 	</span>
 	<span>
 		<input ng-model = "destCookie.name">
 		<input ng-model = "destCookie.value">
 		<button ng-click = "cookieCreate()">Create</button>
 	</span>
-	
+	</div>
+	</div>
 	</body>
 </html>

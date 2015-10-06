@@ -65,7 +65,7 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$scope.select = function(cookieNumber){
 		$scope.buffer = {};
 		var forClone = $scope.cookies[cookieNumber];
-		//log(forClone);
+		log(forClone);
 		//$scope.buffer = $scope.cookies[cookieNumber];
 		for (var key in forClone) {
 			$scope.buffer[key] = forClone[key];
@@ -89,7 +89,8 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		//log($scope.cookies[$scope.buffer.number]);
 		//log($scope.buffer);
 		$scope.cookies[$scope.buffer.number] = $scope.buffer;
-		$scope.apply();
+		$scope.cookies[$scope.buffer.number].selected = false;
+		$scope.update();
 		//$scope.update();
 	}
 
