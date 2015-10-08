@@ -5,40 +5,72 @@
 		<script type="text/javascript" src = "cookie-service-for-tab.js"></script>
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
 		<style>
-			table {
-			width: 100%;
-			table-layout: fixed; 
+			.domain{
+				
+				border-radius: 10px;
+				background-color: #52EAD1;
+				color: #FF0A01;
 			}
-			td {
-			col align: center;
-			text-align: left;
+			.overflow-fixed{
+				overflow: hidden;
+				height: 20px;
+				white-space:nowrap;
+				text-overflow: ellipsis;
 			}
-
 		</style>
 		
 		
 	</head>
 	<body ng-controller="cookieCtrl">
 	<h1>Hello</h1>
-	
-	<div class="container">
+	<div class="container-fluid">
 	<div class = "row">
-	<span ng-repeat="cookie in cookies">
-		<div ng-if="!cookie.selected" ng-click="select(cookie.number)">
-			<div class = "col-xs-3" >{{cookie.domain}}</div>
-			<div class = "col-xs-3">{{cookie.value}}</div>
-			<div class = "col-xs-3">{{cookie.name}}</div>
-		</div>
-		<div ng-if="cookie.selected">
-			<input ng-model = "cookie.domain">
-			<input  ng-model = "cookie.value">
-			<input  ng-model = "cookie.name">
-			<button ng-click="cookieUpdate()">Update</button>
-			<button ng-click="cancel()">Cancel</button>
-			<button ng-click="cookieDelete()">delete</button>
-		</div>
-		</br>
-	</span>
+	<div class = "col-md-2" >Domain</div>
+	<div class = "col-md-8" >Value</div>
+	<div class = "col-md-2" >Name</div>
+	</div>
+		<span ng-repeat="cookie in cookies">
+	
+			<div ng-if="!cookie.selected" ng-click="select(cookie.number)">
+				<div class = "row">
+					<div class = "col-md-2 domain" >{{cookie.domain}}</div>
+					<div class = "col-md-8 value">
+						<div class = "overflow-fixed">
+							{{cookie.value}}
+						</div>
+					</div>
+					<div class = "col-md-2 name" >{{cookie.name}}</div>
+				</div>
+			</div>
+				<div ng-if="cookie.selected">
+					<div class = "row">
+						<textarea class="col-md-2" ng-model = "cookie.domain">
+							
+						</textarea>
+						<textarea class="col-md-8" ng-model = "cookie.value">
+							
+						</textarea>
+						<textarea class="col-md-2" ng-model = "cookie.name">
+							
+						</textarea>
+						
+					</div>
+					<div class = "row">
+						<div class="col-md-2-offset-2">
+								<button class = "btn-success"ng-click="cookieUpdate()">Update
+								</button>
+							</div>
+							<div class="col-md-2">
+								<button class = "btn-primary"ng-click="cancel()">Cancel</button>
+							</div>
+							<div class="col-md-2">
+								<button class="btn-danger" ng-click="cookieDelete()">delete</button>
+							</div>
+						
+					</div>
+				</div>
+				</br>
+		</span>
 	<span>
 		<input ng-model = "destCookie.name">
 		<input ng-model = "destCookie.value">
