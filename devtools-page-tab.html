@@ -3,79 +3,155 @@
 		<script type="text/javascript" src = "angular.min.js"></script>
 		<script type="text/javascript" src = "module-for-tab.js"></script>
 		<script type="text/javascript" src = "cookie-service-for-tab.js"></script>
+		<script type="text/javascript" src = "jquery.js"></script>
 		<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+		<script type="text/javascript" src = "jqueryscript.js"></script>
 		<style>
-			.domain{
-				
-				border-radius: 10px;
-				background-color: #52EAD1;
-				color: #FF0A01;
+			body{
+				font-family: verdana;
+				padding: 50px;
 			}
+			.selected{
+				background-color: #E0E0E0;
+			}
+		
+			.domain-input{
+				border : 1px solid #808080;
+				color: #222233;
+				height: 22px;
+			}
+			.value-input{
+				border : 1px solid #808080;
+				color: #222233;
+				height: 22px;
+			}
+			.name-input{
+				border : 1px solid #808080;
+				color: #222233;
+				height: 22px;
+			}
+			.domain{
+				margin-bottom: -20px;
+				border : 1px solid #808080;
+				
+				color: #222233;
+			}
+			.value{
+				margin-bottom: -20px;
+				border : 1px solid #808080;
+				
+			}
+			.name{
+				margin-bottom: -20px;
+				border : 1px solid #808080;
+				
+				
+			
+				color: #222233;
+			}
+
+		
 			.overflow-fixed{
 				overflow: hidden;
 				height: 20px;
 				white-space:nowrap;
 				text-overflow: ellipsis;
 			}
+			.header{
+				padding-top: 10px;
+				padding-bottom: 10px;
+				background-color: #E0E0E0;
+				border : 1px solid #808080; 
+				text-align: center;
+				font-size: 22px;
+			}
+			.btn-default{
+			background-color: #E0E0E0;
+			border: 1px solid #808080;
+			margin-left: -5px;
+			}
+			.buttons{
+				margin-left: 40%;
+				margin-bottom: -20px;
+			}
 		</style>
-		
 		
 	</head>
 	<body ng-controller="cookieCtrl">
-	<h1>Hello</h1>
+	
+	<div class = "data">
 	<div class="container-fluid">
-	<div class = "row">
-	<div class = "col-md-2" >Domain</div>
-	<div class = "col-md-8" >Value</div>
-	<div class = "col-md-2" >Name</div>
-	</div>
+		<div class = "row">
+		<div class = "col-md-2 col-md-offset-2 header" >Domain</div>
+		<div class = "col-md-4 header">Value</div>
+		<div class = "col-md-2 header" >Name</div>
+		</div>
 		<span ng-repeat="cookie in cookies">
 	
 			<div ng-if="!cookie.selected" ng-click="select(cookie.number)">
-				<div class = "row">
-					<div class = "col-md-2 domain" >{{cookie.domain}}</div>
-					<div class = "col-md-8 value">
+				<div class = "row output">
+					<div class = "col-md-2 col-md-offset-2 domain" >
+						{{cookie.domain}}</div>
+					<div class = "col-md-4 value">
 						<div class = "overflow-fixed">
 							{{cookie.value}}
 						</div>
 					</div>
-					<div class = "col-md-2 name" >{{cookie.name}}</div>
+					<div class = "col-md-2 name " >
+						{{cookie.name}}
+					</div>
 				</div>
 			</div>
 				<div ng-if="cookie.selected">
 					<div class = "row">
-						<textarea class="col-md-2" ng-model = "cookie.domain">
+						<textarea class="col-md-2 col-md-offset-2 domain-input" ng-model = "cookie.domain">
 							
 						</textarea>
-						<textarea class="col-md-8" ng-model = "cookie.value">
+						<textarea class="col-md-4 value-input" ng-model = "cookie.value">
 							
 						</textarea>
-						<textarea class="col-md-2" ng-model = "cookie.name">
+						<textarea class="col-md-2 name-input" ng-model = "cookie.name">
 							
 						</textarea>
 						
 					</div>
 					<div class = "row">
-						<div class="col-md-2-offset-2">
-								<button class = "btn-success"ng-click="cookieUpdate()">Update
+						<div class="col-md-3 col-md-offset-4 buttons">
+								<button class = "btn-default"ng-click="cookieUpdate()">Update
 								</button>
+								<button class = "btn-default"ng-click="cancel()">Cancel</button>
+								<button class="btn-default" ng-click="cookieDelete()">delete</button>
+								
 							</div>
-							<div class="col-md-2">
-								<button class = "btn-primary"ng-click="cancel()">Cancel</button>
-							</div>
-							<div class="col-md-2">
-								<button class="btn-danger" ng-click="cookieDelete()">delete</button>
-							</div>
+							
 						
 					</div>
 				</div>
 				</br>
 		</span>
 	<span>
-		<input ng-model = "destCookie.name">
-		<input ng-model = "destCookie.value">
-		<button ng-click = "cookieCreate()">Create</button>
+	<span ng-if="!createShow">
+		<div class = "row">
+			<button class="col-md-2 col-md-offset-5" ng-click = "setShow()">create Cookie</button>
+		</div>
 	</span>
+	<div ng-if = "createShow">
+		<div class = "row">
+			<textarea class="col-md-2 col-md-offset-2 domain-input"></textarea>
+			<textarea class="col-md-4 value-input" ng-model = 
+			"destCookie.value"></textarea>
+			<textarea class="col-md-2 name-input" ng-model = 
+			"destCookie.name"></textarea>
+		</div>
+		<div class = "row">
+			<div class = "col-md-2 col-md-offset-5">
+				<button class="btn-default " ng-click = "cookieCreate()">Create</button>
+				<button class="btn-default" ng-click = "setShow()">Cancel</button>
+			</div>
+		</div>
+	</div>
+	</span>
+	</div>
 	</div>
 	</div>
 	</body>

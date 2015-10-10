@@ -15,6 +15,8 @@ window.onerror = function(err, url, number){
 
 var myModule  = angular.module('myModule', []);
 myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
+	$scope.createShow = false;
+	
 	$scope.bufferid;
 	$scope.destCookie = {};
 	$scope.destCookie.name = "";
@@ -22,6 +24,10 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 	$scope.cookies = []
 	$scope.cookieService = cookieService;
 	$scope.buffer = {};
+	$scope.setShow = function(){
+		$scope.createShow = !$scope.createShow;
+		log('all');
+	}
 	$scope.init = function(){
 		cookieService.init();
 		$timeout(function(){
