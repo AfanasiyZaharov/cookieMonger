@@ -1,4 +1,4 @@
-
+console.log('123123');
 var onMessageListener = function(message, sender, sendResponse) {
     switch(message.type) {
         case "bglog":
