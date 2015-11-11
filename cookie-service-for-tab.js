@@ -3,27 +3,36 @@
 myModule.factory('cookieService', function() {
 	//extension can't get Cookies from Chrome into Devtools-page,
 	//so we need to get it from the backround-page
-	var backgroundPageConnection = chrome.runtime.connect({
-		name : "devtools-page"
-	});
-	var tabId = chrome.devtools.inspectedWindow.tabId;
+	var backgroundPageConnection;
+	var tabId;
 
 	//update all Cookies for each request
-	backgroundPageConnection.onMessage.addListener(function(message) {
-		that.cache = message.cookies;
-	});
+	
 	var that = {};
 	that.cache = [];
 
 	//this function request a Cookies from the background-page 
 	that.init = function(){
 		that.cache = [];
+		backgroundPageConnection = chrome.runtime.connect({
+			name : "devtools-page"
+		});
+
+		tabId = chrome.devtools.inspectedWindow.tabId;
+
+		backgroundPageConnection.onMessage.addListener(function(message){
+			that.cache = message.cookies;
+		});
+		
+		
 		backgroundPageConnection.postMessage({
 			type : "getall",
 			tabId : tabId
 		});
+		
 	
 	}
+	
 
 	that.createCookie = function(dest){
 		/*delete dest.session;
