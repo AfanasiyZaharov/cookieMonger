@@ -5,9 +5,9 @@
 2 info using npm@2.11.3
 3 info using node@v0.12.7
 4 verbose stack Error: Failed to parse json
-4 verbose stack Trailing comma in object at 31:1
-4 verbose stack }
-4 verbose stack ^
+4 verbose stack Trailing comma in object at 28:3
+4 verbose stack   },
+4 verbose stack   ^
 4 verbose stack     at parseError (C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:379:11)
 4 verbose stack     at parseJson (C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:68:23)
 4 verbose stack     at C:\Program Files\nodejs\node_modules\npm\node_modules\read-package-json\read-json.js:48:5
@@ -22,9 +22,9 @@
 10 error file C:\programming\cookieMonger\package.json
 11 error code EJSONPARSE
 12 error Failed to parse json
-12 error Trailing comma in object at 31:1
-12 error }
-12 error ^
+12 error Trailing comma in object at 28:3
+12 error   },
+12 error   ^
 13 error File: C:\programming\cookieMonger\package.json
 14 error Failed to parse package.json data.
 14 error package.json must be actual JSON, not just JavaScript.
