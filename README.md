@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/AfanasiyZaharov/cookieMonger.svg)](https://travis-ci.org/AfanasiyZaharov/cookieMonger)
+
 #Cookie Monger
 ---
 Cookie Monger is a cookie manager for Google Chrome, utilizing the devtools page of this browser.  
