@@ -23,7 +23,7 @@
     "node": ">=0.4.8"
   },
   "dependencies": {
-    "karma": "0.8",
+    "karma": "0.13.15",
     "karma-jasmine": "0.1.6"
   },
   "devDependencies": {
