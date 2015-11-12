@@ -45,17 +45,17 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		log(' update working now');
 		
 		
-			$timeout(function(){
-				$scope.cookies = [];
-				log(cookieService.cache);
-				for(var i = 0; i<cookieService.cache.length; i++){
+		$timeout(function(){
+			$scope.cookies = [];
+			log(cookieService.cache);
+			for(var i = 0; i<cookieService.cache.length; i++){
 				$scope.cookies.push(cookieService.cache[i])
 				$scope.cookies[i].selected = false;
 				$scope.cookies[i].number  = i;
 			}
-			
+		
 			log($scope.cookies);
-			
+		
 		}, 50);
 		$scope.apply();
 	}
@@ -112,16 +112,5 @@ myModule.controller('cookieCtrl', function($scope, $timeout, cookieService){
 		log('oldValue');
 		log(oldValue);
 		$scope.update();
-	})
-	$timeout(function(){
-		//log(cookieService.cache);
-		//log(cookieService.cache);
-		//log($scope.cookies);
-	},1500)
-
-
-
-
-
-
+	});
 });

@@ -65,8 +65,8 @@ describe('when cookieService.init then', function(){
 
 	});
 });
-describe('when cookieService create then',function(){
-	it('should send message with "update" type',function(){
+describe('when createCookie is called then',function(){
+	it('cookie is posted to the backgroundPage',function(){
 		cookieService.init();
 		cookieService.createCookie({name: 'testCookie', domain: 'www.example.com', value: '140'});
 		expect(res.postMessage).toHaveBeenCalledWith(jasmine.objectContaining({
