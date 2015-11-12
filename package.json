@@ -1,0 +1,31 @@
+{
+  "author": "Afanasiy Zaharov <afanasiy,zaharovfe@gmail.com>",
+  "name": "cookieMonger",
+  "description": "",
+  "version": "0.0.1",
+  "main" : "module-for-tab.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AfanasiyZaharov/cookieMonger"
+  },
+  "bin" : {
+    "aza" : "module-for-tab.js"
+  },
+  "directories" : {
+    "lib" : "./lib",
+    "test" : "./spec"
+  },
+  
+  "scripts": {
+    "test": "./node_modules/.bin/karma start karma.conf.js"
+  
+  },
+  "engines": {
+    "node": ">=0.4.8"
+  },
+  "dependencies": {
+    "karma":"~0.8" 
+  }
+
+}
+
